@@ -1,0 +1,240 @@
+/* Gallery Section */
+.gallery {
+  padding: 10px;
+  max-width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  max-height: 100vh;
+  max-height: 100dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gallery h2 {
+  font-size: 1.5rem;
+  margin: 10px 0 15px 0;
+  color: #e91e63;
+  flex-shrink: 0;
+  font-weight: 700;
+}
+
+.photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  justify-content: center;
+  max-width: 900px;
+  width: 100%;
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
+
+.photos img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 400ms;
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+  border: 3px solid rgba(255, 255, 255, 0.8);
+}
+
+.photos img.reveal {
+  animation: photoReveal 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes photoReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.photos img:hover {
+  transform: scale(1.1) rotate(2deg);
+  box-shadow: 0 12px 30px rgba(233, 30, 99, 0.4);
+  z-index: 10;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 300ms ease;
+}
+
+.lightbox img {
+  max-width: 85%;
+  max-height: 85%;
+  border-radius: 10px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+  animation: zoomIn 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 300ms, transform 200ms;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.lightbox-close:hover {
+  background: rgba(233, 30, 99, 0.8);
+  transform: rotate(90deg);
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: background 300ms, transform 200ms;
+  backdrop-filter: blur(10px);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.nav-btn:hover {
+  background: rgba(233, 30, 99, 0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.nav-prev {
+  left: 15px;
+}
+
+.nav-next {
+  right: 15px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .gallery {
+    padding: 12px 8px;
+    padding-top: max(env(safe-area-inset-top), 12px);
+    padding-bottom: max(env(safe-area-inset-bottom), 12px);
+  }
+
+  .gallery h2 {
+    font-size: 1.3rem;
+    margin: 5px 0 12px 0;
+  }
+
+  .photos {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 0 8px;
+    margin-bottom: 15px;
+  }
+
+  .photos img {
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+    border: 2px solid rgba(255, 255, 255, 0.7);
+  }
+
+  .photos img {
+    border-radius: 10px;
+  }
+
+  .nav-btn {
+    font-size: 1.8rem;
+    padding: 6px 12px;
+  }
+
+  .lightbox-close {
+    top: max(env(safe-area-inset-top), 15px);
+    right: 15px;
+    width: 38px;
+    height: 38px;
+    font-size: 1.4rem;
+  }
+
+  .lightbox img {
+    max-width: 92%;
+    max-height: 80%;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 375px) {
+  .gallery {
+    padding: 10px 6px;
+  }
+
+  .gallery h2 {
+    font-size: 1.2rem;
+    margin: 5px 0 10px 0;
+  }
+
+  .photos {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding: 0 6px;
+  }
+
+  .photos img {
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* Landscape mode - 3 columns */
+@media (max-width: 932px) and (orientation: landscape) {
+  .photos {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-height: calc(100vh - 80px);
+    max-height: calc(100dvh - 80px);
+  }
+
+  .gallery h2 {
+    font-size: 1.2rem;
+    margin: 5px 0 10px 0;
+  }
+}
