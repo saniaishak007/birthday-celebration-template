@@ -19,8 +19,8 @@ function Countdown({ onBirthdayReached, birthdayReached }) {
     // 🎂 SET YOUR BIRTHDAY DATE & TIME HERE 🎂
     // ═══════════════════════════════════════════════════════════════
 
-    const targetDate = new Date("2025-12-20T05:30:00");
-
+    // Set target date/time in UTC (London is usually UTC+0 or UTC+1 in summer)
+     const targetDate = new Date("2025-12-20T00:00:00Z"); // Z = UTC
     // 📝 HOW TO USE:
     // Replace the date above with your actual birthday
     // Format: 'YYYY-MM-DD HH:MM:SS'
