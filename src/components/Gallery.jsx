@@ -10,13 +10,15 @@ function Gallery({ isActive }) {
   const photosRef = useRef([]);
   const lightboxImgRef = useRef(null);
 
+  // ✅ Place your images in public/images/
+  // Make sure file names and extensions match exactly (e.g., pic1.jpg, pic2.jpg)
   const photos = [
-    { src: "/images/pic1.jpeg", alt: "Memory 1" },
-    { src: "/images/pic2.jpeg", alt: "Memory 2" },
-    { src: "/images/pic3.jpeg", alt: "Memory 3" },
-    { src: "/images/pic4.jpeg", alt: "Memory 4" },
-    { src: "/images/pic5.jpeg", alt: "Memory 5" },
-    { src: "/images/pic6.jpeg", alt: "Memory 6" },
+    { src: "/images/pic1.jpg", alt: "Memory 1" },
+    { src: "/images/pic2.jpg", alt: "Memory 2" },
+    { src: "/images/pic3.jpg", alt: "Memory 3" },
+    { src: "/images/pic4.jpg", alt: "Memory 4" },
+    { src: "/images/pic5.jpg", alt: "Memory 5" },
+    { src: "/images/pic6.jpg", alt: "Memory 6" },
   ];
 
   // Reveal photos with GSAP when page becomes active
@@ -24,14 +26,9 @@ function Gallery({ isActive }) {
     if (isActive && !photosRevealed) {
       setTimeout(() => setPhotosRevealed(true), 10);
 
-      // Stagger animation for photos
       gsap.fromTo(
         photosRef.current,
-        {
-          opacity: 0,
-          y: 50,
-          scale: 0.8,
-        },
+        { opacity: 0, y: 50, scale: 0.8 },
         {
           opacity: 1,
           y: 0,
@@ -49,7 +46,6 @@ function Gallery({ isActive }) {
     setCurrentIndex(index);
     setLightboxOpen(true);
 
-    // Animate lightbox appearance
     if (lightboxImgRef.current) {
       gsap.fromTo(
         lightboxImgRef.current,
@@ -59,27 +55,15 @@ function Gallery({ isActive }) {
     }
   };
 
-  const closeLightbox = useCallback(() => {
-    setLightboxOpen(false);
-  }, []);
+  const closeLightbox = useCallback(() => setLightboxOpen(false), []);
 
-  // Handle body overflow in effect
   useEffect(() => {
-    if (lightboxOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-    };
+    document.body.style.overflow = lightboxOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [lightboxOpen]);
 
   const showNext = useCallback(() => {
     const newIndex = (currentIndex + 1) % photos.length;
-
-    // Animate transition
     if (lightboxImgRef.current) {
       gsap.to(lightboxImgRef.current, {
         x: -100,
@@ -100,8 +84,6 @@ function Gallery({ isActive }) {
 
   const showPrev = useCallback(() => {
     const newIndex = (currentIndex - 1 + photos.length) % photos.length;
-
-    // Animate transition
     if (lightboxImgRef.current) {
       gsap.to(lightboxImgRef.current, {
         x: 100,
@@ -123,16 +105,10 @@ function Gallery({ isActive }) {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!lightboxOpen) return;
-
-      if (e.key === "Escape") {
-        closeLightbox();
-      } else if (e.key === "ArrowLeft") {
-        showPrev();
-      } else if (e.key === "ArrowRight") {
-        showNext();
-      }
+      if (e.key === "Escape") closeLightbox();
+      else if (e.key === "ArrowLeft") showPrev();
+      else if (e.key === "ArrowRight") showNext();
     };
-
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [lightboxOpen, showNext, showPrev, closeLightbox]);
