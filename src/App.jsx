@@ -17,12 +17,12 @@ function App() {
 
   // ⚠️ FOR TESTING: Comment out lines 18-21 to reset on every reload
   // Check localStorage to persist birthday reached state
-  //const [birthdayReached, setBirthdayReached] = useState(() => {
+    const [birthdayReached, setBirthdayReached] = useState(() => {
     const saved = localStorage.getItem("birthdayReached");
     return saved === "true";
   });
 
-  // ✅ FOR TESTING: Uncomment this line to always show countdown on reload
+  //✅ FOR TESTING: Uncomment this line to always show countdown on reload
   const [birthdayReached, setBirthdayReached] = useState(false);
 
   const [showEffects, setShowEffects] = useState(false);
