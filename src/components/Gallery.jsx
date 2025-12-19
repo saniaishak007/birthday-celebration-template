@@ -27,7 +27,11 @@ function Gallery({ isActive }) {
       // Stagger animation for photos
       gsap.fromTo(
         photosRef.current,
-        { opacity: 0, y: 50, scale: 0.8 },
+        {
+          opacity: 0,
+          y: 50,
+          scale: 0.8,
+        },
         {
           opacity: 1,
           y: 0,
@@ -108,4 +112,86 @@ function Gallery({ isActive }) {
           setCurrentIndex(newIndex);
           gsap.fromTo(
             lightboxImgRef.current,
-            { x:
+            { x: -100, opacity: 0 },
+            { x: 0, opacity: 1, duration: 0.3, ease: "power2.out" }
+          );
+        },
+      });
+    }
+  }, [currentIndex, photos.length]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!lightboxOpen) return;
+
+      if (e.key === "Escape") {
+        closeLightbox();
+      } else if (e.key === "ArrowLeft") {
+        showPrev();
+      } else if (e.key === "ArrowRight") {
+        showNext();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxOpen, showNext, showPrev, closeLightbox]);
+
+  return (
+    <section className="gallery">
+      <h2>📸 Our Beautiful Memories</h2>
+      <div className="photos">
+        {photos.map((photo, index) => (
+          <img
+            key={index}
+            ref={(el) => (photosRef.current[index] = el)}
+            src={photo.src}
+            alt={photo.alt}
+            onClick={() => openLightbox(index)}
+            loading="lazy"
+          />
+        ))}
+      </div>
+
+      {lightboxOpen && (
+        <div className="lightbox" onClick={closeLightbox}>
+          <img
+            ref={lightboxImgRef}
+            src={photos[currentIndex].src}
+            alt={photos[currentIndex].alt}
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            className="lightbox-close"
+            onClick={closeLightbox}
+            aria-label="Close lightbox"
+          >
+            ✖
+          </button>
+          <button
+            className="nav-btn nav-prev"
+            onClick={(e) => {
+              e.stopPropagation();
+              showPrev();
+            }}
+            aria-label="Previous photo"
+          >
+            ‹
+          </button>
+          <button
+            className="nav-btn nav-next"
+            onClick={(e) => {
+              e.stopPropagation();
+              showNext();
+            }}
+            aria-label="Next photo"
+          >
+            ›
+          </button>
+        </div>
+      )}
+    </section>
+  );
+}
+
+export default Gallery;
