@@ -15,14 +15,14 @@ gsap.registerPlugin(ScrollToPlugin);
 function App() {
   const [currentPage, setCurrentPage] = useState(1); // Start at 1 for Countdown page
 
-  // ⚠️ FOR TESTING: Comment out lines 18-21 to reset on every reload
-  // Check localStorage to persist birthday reached state
-    const [birthdayReached, setBirthdayReached] = useState(() => {
-    const saved = localStorage.getItem("birthdayReached");
-    return saved === "true";
-  });
+  // ✅ Birthday reached state
+  // Option 1: use localStorage persistence
+  // const [birthdayReached, setBirthdayReached] = useState(() => {
+  //   const saved = localStorage.getItem("birthdayReached");
+  //   return saved === "true";
+  // });
 
-  //✅ FOR TESTING: Uncomment this line to always show countdown on reload
+  // Option 2: always start as false for testing
   const [birthdayReached, setBirthdayReached] = useState(false);
 
   const [showEffects, setShowEffects] = useState(false);
@@ -64,10 +64,7 @@ function App() {
       delay: 0.2,
       onComplete: () => {
         setCurrentPage(pageNumber);
-        // Reset current page position
         gsap.set(currentPageRef.current, { x: "0%", visibility: "hidden" });
-
-        // Smooth scroll to top
         gsap.to(window, { duration: 0.3, scrollTo: { y: 0 } });
       },
     });
@@ -75,9 +72,8 @@ function App() {
 
   const handleBirthdayReached = () => {
     setBirthdayReached(true);
-    localStorage.setItem("birthdayReached", "true"); // Persist to localStorage
+    localStorage.setItem("birthdayReached", "true");
     setShowEffects(true);
-    // Stop effects after some time
     setTimeout(() => setShowEffects(false), 10000);
   };
 
@@ -105,7 +101,7 @@ function App() {
               </>
             )}
           </h1>
-        <p>Every second brings me closer to celebrating you 💗</p>
+          <p>Every second brings me closer to celebrating you 💗</p>
         </section>
 
         <Countdown
