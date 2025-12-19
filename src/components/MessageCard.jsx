@@ -13,19 +13,17 @@ function MessageCard({ isActive }) {
   const curtainHintRef = useRef(null);
   const messageContentRef = useRef(null);
 
-  const message = `[Recipient Name],
+  const message = `ARSHU KUTTY,
 
-Your personalized birthday message goes here.
-
-You can write multiple paragraphs to express your feelings,
-share memories, and make this special day even more memorable.
-
-This template supports multiple lines and formatting,
-so feel free to customize it completely to fit your style.
-
+Happy Birthday Sunshine!You are the reason for my smile, I know we were
+not meant to be close to eachother today, yet i wanted you to feel speacial!
+One Year closer to our destiny!
+IT'S OUR 5TH ONE TOGETHER!
+I LOVE YOU THE MOST ARSHAMMA!!
+Once Again,
 Happy Birthday! 🎉
 
-— [Your Name]`;
+— Sania papa`;
 
   // Handle page transitions
   useEffect(() => {
