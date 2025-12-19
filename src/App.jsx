@@ -23,7 +23,7 @@ function App() {
   });
 
   // ✅ FOR TESTING: Uncomment this line to always show countdown on reload
-  //const [birthdayReached, setBirthdayReached] = useState(false);
+  const [birthdayReached, setBirthdayReached] = useState(false);
 
   const [showEffects, setShowEffects] = useState(false);
 
@@ -171,7 +171,7 @@ function App() {
         <Gallery isActive={currentPage === 4} />
         <section className="final">
           <h2 className="final-message">💖 Forever Yours — Sania Papa 💖</h2>
-          <p className="final-subtitle">Your personalized closing message ✨</p>
+          <p className="final-subtitle">I LOVE YOU 3000! ✨</p>
         </section>
       </div>
 
