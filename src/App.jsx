@@ -23,7 +23,7 @@ function App() {
   });
 
   // ✅ FOR TESTING: Uncomment this line to always show countdown on reload
-  // const [birthdayReached, setBirthdayReached] = useState(false);
+  const [birthdayReached, setBirthdayReached] = useState(false);
 
   const [showEffects, setShowEffects] = useState(false);
 
@@ -96,16 +96,16 @@ function App() {
           <h1 id="heroTitle">
             {birthdayReached ? (
               <>
-                Happy Birthday <span className="highlight">[Name]</span> 🎂
+                Happy Birthday <span className="highlight">Arshu Kutty</span> 🎂
               </>
             ) : (
               <>
-                Counting down to <span className="highlight">[Name]'s</span>{" "}
+                Counting down to <span className="highlight">Arshu Kutty's</span>{" "}
                 special day 🎂
               </>
             )}
           </h1>
-          <p>Your personalized message goes here 💗</p>
+        <p>Every second brings me closer to celebrating you 💗</p>
         </section>
 
         <Countdown
@@ -170,7 +170,7 @@ function App() {
         </button>
         <Gallery isActive={currentPage === 4} />
         <section className="final">
-          <h2 className="final-message">💖 Forever Yours — [Your Name] 💖</h2>
+          <h2 className="final-message">💖 Forever Yours — Sania Papa 💖</h2>
           <p className="final-subtitle">Your personalized closing message ✨</p>
         </section>
       </div>
